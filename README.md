@@ -363,7 +363,7 @@ reads files only and is safe on a login node. It scans tracked files, so run it 
 
 ## Licence
 
-Copyright (C) 2026 The authors of "Steering intonation in text-to-speech synthesis".
+Copyright (C) 2026 Juan Pablo Vigneaux and Jennifer Cole.
 
 This program is free software: you can redistribute it and/or modify it under the terms of the
 GNU Affero General Public License, version 3, as published by the Free Software Foundation
