@@ -1,6 +1,7 @@
 # Intervention-AvsI
 
-Supporting code for the submission **"Steering intonation in text-to-speech synthesis."**
+Supporting code for the article **"Steering intonation in text-to-speech synthesis"** by Juan Pablo
+Vigneaux and Jennifer Cole.
 
 Text-to-speech systems built on residual vector quantization (RVQ) often generate in two stages:
 a backbone emits level 0 of each frame's token stack from its hidden state `h_t`, and a smaller
