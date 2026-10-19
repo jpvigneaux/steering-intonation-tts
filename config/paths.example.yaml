@@ -1,0 +1,73 @@
+# Extends the schema of the companion probing repository with generation-specific keys.
+# Copy to config/paths.yaml, which is not tracked, and fill in your site's values.
+#
+# Each key says what reads it. Keys marked "companion" are read by the basic8probes package
+# (e.g. the Mimi wrapper and its caches) and not directly by this repository.
+
+# --- shared with the companion repository ---
+corpora:
+  # Human recordings (<speaker>_<SENTENCE>_..._<tune>.wav with TextGrids): the demonstration
+  # control's context audio (pipeline/elicitation_controls.py --design imitation).
+  human: /path/to/human-recordings
+embeddings_root: /path/to/fast-storage/embeddings          # companion
+probes_root:                                               # companion
+  mimi: /path/to/durable/probes-mimi
+studies_db_root: /path/to/durable/studies-db               # companion
+studies_root: /path/to/durable/studies                     # companion
+ddp_rendezvous_root: /path/to/durable/ddp                  # companion
+# Default output directory of every analysis script (-o / --out / ANALYSIS override it).
+analysis_root: /path/to/durable/analysis
+figures_root: /path/to/figures                             # companion
+# Where submit.py tells SLURM to write job logs.
+logs_root: /path/to/durable/logs
+
+# --- generation ---
+generation:
+  # Documentation only: the checkpoints the two systems were run from. Not read by the code
+  # (CSM's loader resolves its own checkpoint; S2 is loaded from fish_s2_local).
+  csm_repo: sesame/csm-1b
+  fish_s2_repo: fishaudio/s2-pro
+  # Directory holding CSM's generator.py / models.py / watermarking.py; it is not a package and
+  # is put on sys.path by interventions.csm.load_generator.
+  csm_package: /path/to/csm-source
+  # The recorded instructions used as the CSM prompt's context segment. Every published CSM
+  # generation used the same file; a different one makes new generations incomparable.
+  instructions_wav: /path/to/instructions.wav
+  # The two human context fragments of the narrow lexical control (asyouknow.wav,
+  # wontbelieve.wav).
+  exploratory_audio: /path/to/context-fragments
+  # Local snapshot directory of the S2 checkpoint (holds codec.pth).
+  fish_s2_local: /path/to/fish-s2-checkpoint
+  # Default generation set: a directory holding generation_index.csv, latents/ (one .npz per
+  # recording) and outputs/ (wav, txt and forced-alignment TextGrid per recording). Every
+  # script takes --archives (payloads: ARCHIVES) to name a set explicitly; do so, since the
+  # default may be a different set from the one you mean. Durable storage: archives record
+  # sampled token sequences that a seed alone cannot reproduce.
+  archives_root: /path/to/durable/archives
+  # Parent of the S2 generation sets; generate_fish_s2.py writes <this>/ref-<tag>.
+  s2_archives_root: /path/to/durable/s2-archives
+  # The ten-speaker set: the prompt plan, the human-fitted steering vectors, the unsteered
+  # generations and the in-loop steering matrix beneath one root (layout in
+  # analysis/matrix/_layout.py). Read by every script in analysis/matrix/; TEN_SPEAKER_ROOT
+  # overrides it.
+  ten_speaker_root: /path/to/durable/ten-speaker-set
+  # Default root for decoded interventions (<root>/<label>/{manifest.csv,latents/,audio/}).
+  # Regenerable from the archives.
+  decoded_root: /path/to/fast-storage/decoded
+
+# --- intelligibility control ---
+asr:
+  model_id: openai/whisper-small
+
+# --- cluster: read by pipeline/submit.py only ---
+slurm:
+  account: your-account
+  cpu_partition: short
+  gpu_partition: gpu
+  gpu_gres: "gpu:a100:1"
+  # Interpreters: the CSM environment, and the separate Fish S2 one (docs/fish-s2-environment.md).
+  python: /path/to/env/bin/python
+  fish_python: /path/to/fish-s2-env/bin/python
+  # Hugging Face cache for jobs. When set, jobs also get HF_HUB_OFFLINE=1: compute nodes have no
+  # network, so every model must already be in this cache.
+  hf_home: /path/to/cache/huggingface

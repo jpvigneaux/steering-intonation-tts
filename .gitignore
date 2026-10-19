@@ -1,0 +1,40 @@
+config/paths.yaml
+
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Generated and derived artifacts
+*.npz
+*.pt
+*.wav
+*.TextGrid
+*.db
+archives/
+decoded/
+outputs/
+logs/
+
+# Derived measurements are committed selectively; figures regenerate from them.
+*.pdf
+!docs/*.png
+
+.venv/
+venv/
+.env
+.idea/
+.vscode/
+.DS_Store
+.ipynb_checkpoints/
+
+# Paper draft: kept out of the code repository history.
+paper/
+
+# Human-subjects material. The survey sheet carries participant ids, age, gender and screening
+# answers; the stimulus design names its model recordings by what may be talker initials. The
+# anonymity gate scans text for paths and addresses and skips binary files, so these are
+# excluded here rather than trusted to it.
+full_survey_data_exclusions.xlsx
+condition ID numbering.json
