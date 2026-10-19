@@ -360,3 +360,33 @@ reads files only and is safe on a login node. It scans tracked files, so run it 
   weights are in this repository.
 - No audio is redistributed. The human corpus used for the demonstrations is third-party and
   cited in the paper.
+
+## Licence
+
+Copyright (C) 2026 The authors of "Steering intonation in text-to-speech synthesis".
+
+This program is free software: you can redistribute it and/or modify it under the terms of the
+GNU Affero General Public License, version 3, as published by the Free Software Foundation
+([`LICENSE`](LICENSE)). It is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE. See the licence for details.
+
+**Additional permission under GNU AGPL version 3 section 7.** If you modify this program, or any
+covered work, by linking or combining it with fish-speech and the Fish Audio S2 model weights, or
+with the CSM model and the Llama 3.2 tokenizer it loads (or modified versions of any of these),
+containing parts covered by the terms of their own licences, the licensors of this program grant
+you additional permission to convey the resulting work.
+
+**Third-party components and terms.** These are not distributed here, except where stated, and
+keep their own terms, which bind anyone who uses them through this code:
+
+- `src/basic8probes/`: vendored from the code of the companion probing study under the MIT
+  licence ([`src/basic8probes/LICENSE`](src/basic8probes/LICENSE)).
+- Praat, through parselmouth (GPL-3.0), for every F0 and harmonicity measurement.
+- fish-speech and the Fish Audio S2 weights, under Fish Audio's research licence, which does not
+  permit commercial use: the S2 half of the pipeline.
+- CSM and the Llama 3.2 tokenizer it loads, under their own licences (the tokenizer under the
+  Llama 3.2 Community License): the CSM half of the pipeline.
+- The human recordings of Cole et al. (2023), under that corpus's terms. They are not
+  distributed; `data/ten-speaker-plan/prompt_plan.csv` lists recording names and speaker codes
+  from it.
