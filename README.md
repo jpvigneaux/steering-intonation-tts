@@ -1,4 +1,4 @@
-# Intervention-AvsI
+# Steering intonation in text-to-speech synthesis
 
 Supporting code for the article **"Steering intonation in text-to-speech synthesis"** by Juan Pablo
 Vigneaux and Jennifer Cole.
